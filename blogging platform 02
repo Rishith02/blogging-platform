@@ -1,0 +1,56 @@
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+
+export default function App() {
+  const [posts, setPosts] = useState([]);
+  const [newPost, setNewPost] = useState('');
+
+  const handleAddPost = () => {
+    if (newPost) {
+      setPosts([...posts, newPost]);
+      setNewPost('');
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>My Blog</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Write a new post..."
+        value={newPost}
+        onChangeText={(text) => setNewPost(text)}
+      />
+      <Button title="Add Post" onPress={handleAddPost} />
+      <View>
+        {posts.map((post, index) => (
+          <Text key={index} style={styles.post}>
+            {post}
+          </Text>
+        ))}
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  header: {
+    fontSize: 24,
+    marginBottom: 20,
+  },
+  input: {
+    width: 300,
+    borderWidth: 1,
+    padding: 10,
+    marginBottom: 10,
+  },
+  post: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+});
